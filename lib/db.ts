@@ -1,19 +1,28 @@
 import path from 'path';
 import fs from 'fs';
 
-const DB_PATH = path.join(process.cwd(), 'data', 'dulorabite.db');
-
-// Ensure data directory exists
-const dataDir = path.join(process.cwd(), 'data');
-if (!fs.existsSync(dataDir)) {
-  fs.mkdirSync(dataDir, { recursive: true });
-}
-
 let db: any;
 
 export function getDb(): any {
   if (!db) {
+    // Determine if we should attempt file system initialization
+    const isVercel = process.env.VERCEL === '1';
+
+    if (!isVercel) {
+      try {
+        const dataDir = path.join(process.cwd(), 'data');
+        if (!fs.existsSync(dataDir)) {
+          fs.mkdirSync(dataDir, { recursive: true });
+        }
+      } catch (fse) {
+        console.warn('Could not create data directory:', fse);
+      }
+    }
+
     try {
+      if (isVercel) throw new Error('Prefer mock on Vercel');
+      
+      const DB_PATH = path.join(process.cwd(), 'data', 'dulorabite.db');
       const Database = require('better-sqlite3');
       db = new Database(DB_PATH);
       db.pragma('journal_mode = WAL');
