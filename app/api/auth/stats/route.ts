@@ -18,7 +18,7 @@ export async function GET(req: NextRequest) {
     // Monthly orders trend (last 6 months)
     const trends = await db.prepare(`
       SELECT 
-        strftime('%Y-%m', created_at) as month,
+        to_char(created_at, 'YYYY-MM') as month,
         COUNT(*) as count
       FROM orders
       GROUP BY month
