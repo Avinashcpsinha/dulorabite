@@ -8,8 +8,9 @@ import { Product } from '@/lib/types';
 
 async function getAllProducts(): Promise<Product[]> {
   try {
-    const db = getDb();
-    return db.prepare('SELECT * FROM products WHERE active=1 ORDER BY category, name').all() as Product[];
+    const db = await getDb();
+    const products = await db.prepare('SELECT * FROM products WHERE active = 1 ORDER BY category').all();
+    return products as any[];
   } catch {
     return [];
   }
