@@ -1,11 +1,21 @@
 import { Resend } from 'resend';
 
-// NOTE: You will need to add RESEND_API_KEY to your .env.local after signing up at resend.com
-const resend = new Resend(process.env.RESEND_API_KEY);
+// We initialize inside a function or check for key to prevent build-time crashes
+const getResend = () => {
+  const key = process.env.RESEND_API_KEY;
+  if (!key) {
+    console.warn('⚠️ RESEND_API_KEY is missing. Emails will not be sent.');
+    return null;
+  }
+  return new Resend(key);
+};
 
 export async function sendOrderEmails(orderId: string, orderData: any) {
+  const resend = getResend();
+  if (!resend) return { success: false, error: 'No API Key' };
+
   const { customer, items, total } = orderData;
-  const adminEmail = process.env.ADMIN_EMAIL || 'avinashcpsinha@gmail.com'; // Change this to your preferred admin email
+  const adminEmail = process.env.ADMIN_EMAIL || 'avinashcpsinha@gmail.com';
 
   try {
     // 1. Send Email to the Customer
@@ -37,7 +47,7 @@ export async function sendOrderEmails(orderId: string, orderData: any) {
       `,
     });
 
-    // 2. Send Email to the Admin (You)
+    // 2. Send Email to the Admin
     await resend.emails.send({
       from: 'DuloraBite System <system@dulorabite.co.in>',
       to: adminEmail,
