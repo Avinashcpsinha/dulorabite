@@ -26,7 +26,7 @@ export default function Footer() {
           <div>
             <h4 className="text-xs font-bold uppercase tracking-widest mb-4" style={{ color: '#C8973A' }}>Products</h4>
             <ul className="space-y-2.5">
-              {['Chocolates', 'Cookies', 'Lollipops', 'Energy Bars', 'Gift Boxes'].map(p => (
+              {['Cookies', 'Chocolates', 'Lollipops', 'Energy Bars'].map(p => (
                 <li key={p}><Link href="/products" className="text-sm transition-colors"
                   style={{ color: 'rgba(253,243,227,0.45)' }}
                   onMouseEnter={e => (e.currentTarget.style.color = '#E8B96A')}
@@ -34,6 +34,15 @@ export default function Footer() {
                   {p}
                 </Link></li>
               ))}
+              <li className="pt-2">
+                <a href="/images/DuloraBite_Catalogue.png" download 
+                  className="text-xs font-bold uppercase tracking-widest px-3 py-1.5 rounded transition-all inline-block"
+                  style={{ background: 'rgba(200,151,58,0.1)', border: '1px solid rgba(200,151,58,0.2)', color: '#E8B96A' }}
+                  onMouseEnter={e => (e.currentTarget.style.background = 'rgba(200,151,58,0.2)')}
+                  onMouseLeave={e => (e.currentTarget.style.background = 'rgba(200,151,58,0.1)')}>
+                  Download Catalog ↓
+                </a>
+              </li>
             </ul>
           </div>
 
