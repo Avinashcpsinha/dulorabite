@@ -1,6 +1,5 @@
 import { Resend } from 'resend';
 
-// We initialize inside a function or check for key to prevent build-time crashes
 const getResend = () => {
   const key = process.env.RESEND_API_KEY;
   if (!key) {
@@ -18,10 +17,13 @@ export async function sendOrderEmails(orderId: string, orderData: any) {
   const adminEmail = process.env.ADMIN_EMAIL || 'avinashcpsinha@gmail.com';
 
   try {
+    // 🚀 IN TESTING MODE: You must use 'onboarding@resend.dev' or your verified domain
+    const sender = 'onboarding@resend.dev'; 
+
     // 1. Send Email to the Customer
     await resend.emails.send({
-      from: 'DuloraBite <orders@dulorabite.co.in>',
-      to: customer.email,
+      from: sender,
+      to: customer.email, // In test mode, this must also be YOUR verified email or it will fail
       subject: `🍭 Order Confirmed - #${orderId}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; color: #333;">
@@ -47,9 +49,9 @@ export async function sendOrderEmails(orderId: string, orderData: any) {
       `,
     });
 
-    // 2. Send Email to the Admin
+    // 2. Send Email to the Admin (You)
     await resend.emails.send({
-      from: 'DuloraBite System <system@dulorabite.co.in>',
+      from: sender,
       to: adminEmail,
       subject: `🚀 NEW ORDER RECEIVED - #${orderId}`,
       html: `
