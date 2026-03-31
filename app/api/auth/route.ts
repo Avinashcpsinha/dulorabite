@@ -5,14 +5,14 @@ import bcrypt from 'bcryptjs';
 
 export async function POST(req: NextRequest) {
   try {
-    const db = getDb();
+    const db = await getDb();
     const { username, password } = await req.json();
 
     if (!username || !password) {
       return NextResponse.json({ success: false, error: 'Username and password required' }, { status: 400 });
     }
 
-    const admin = db.prepare('SELECT * FROM admins WHERE username = ?').get(username) as any;
+    const admin = await db.prepare('SELECT * FROM admins WHERE username = ?').get(username) as any;
     if (!admin) {
       return NextResponse.json({ success: false, error: 'Invalid credentials' }, { status: 401 });
     }

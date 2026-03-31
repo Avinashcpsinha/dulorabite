@@ -11,8 +11,9 @@ import Link from 'next/link';
 
 async function getFeaturedProducts(): Promise<Product[]> {
   try {
-    const db = getDb();
-    return db.prepare('SELECT * FROM products WHERE active=1 LIMIT 4').all() as Product[];
+    const db = await getDb();
+    const products = await db.prepare('SELECT * FROM products WHERE active=1 LIMIT 4').all() as Product[];
+    return products;
   } catch {
     return [];
   }
