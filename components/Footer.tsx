@@ -49,7 +49,7 @@ export default function Footer() {
           <div>
             <h4 className="text-xs font-bold uppercase tracking-widest mb-4" style={{ color: '#C8973A' }}>Company</h4>
             <ul className="space-y-2.5">
-              {[['/', 'Home'], ['/products', 'Products'], ['/#story', 'Our Story'], ['/#contact', 'Reseller'], ['/admin', 'Admin Panel']].map(([href, label]) => (
+              {[['/', 'Home'], ['/products', 'Products'], ['/#story', 'Our Story'], ['/#contact', 'Reseller']].map(([href, label]) => (
                 <li key={href}><Link href={href} className="text-sm font-medium transition-colors duration-200"
                   style={{ color: 'rgba(253,243,227,0.75)' }}
                   onMouseEnter={e => (e.currentTarget.style.color = '#E8B96A')}

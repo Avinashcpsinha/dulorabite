@@ -57,14 +57,6 @@ export default function Navbar() {
             )}
           </button>
 
-          {/* Admin link */}
-          <Link href="/admin" className="hidden md:inline-flex px-4 py-2 rounded text-xs font-bold uppercase tracking-wider transition-all duration-200"
-            style={{ background: '#C8973A', color: '#3B1F0E' }}
-            onMouseEnter={e => (e.currentTarget.style.background = '#E8B96A')}
-            onMouseLeave={e => (e.currentTarget.style.background = '#C8973A')}>
-            Admin
-          </Link>
-
           {/* Mobile hamburger */}
           <button className="md:hidden" style={{ color: '#E8B96A' }} onClick={() => setMobileOpen(!mobileOpen)}>
             {mobileOpen ? <X size={22} /> : <Menu size={22} />}
@@ -75,7 +67,7 @@ export default function Navbar() {
       {/* Mobile menu */}
       {mobileOpen && (
         <div className="md:hidden px-6 pb-4 flex flex-col gap-3" style={{ background: 'rgba(59,31,14,0.98)' }}>
-          {[['/', 'Home'], ['/products', 'Products'], ['/#story', 'Our Story'], ['/#contact', 'Reseller'], ['/admin', 'Admin Panel']].map(([href, label]) => (
+          {[['/', 'Home'], ['/products', 'Products'], ['/#story', 'Our Story'], ['/#contact', 'Reseller']].map(([href, label]) => (
             <Link key={href} href={href} onClick={() => setMobileOpen(false)}
               className="text-sm py-2 border-b font-medium" style={{ color: 'rgba(253,243,227,0.8)', borderColor: 'rgba(200,151,58,0.15)' }}>
               {label}
