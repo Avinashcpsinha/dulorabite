@@ -47,7 +47,15 @@ export async function getDb(): Promise<any> {
   // Fallback... (Same as before)
   return {
     prepare: (query: string) => ({
-      all: () => query.includes('products') ? mockProducts : [],
+      all: (params: any[] = []) => {
+          if (query.includes('products')) return mockProducts;
+          if (query.includes('settings')) return [
+              { key: 'story_title', value: 'Handmade with Pure Intention' },
+              { key: 'story_subtitle', value: 'About DuloraBite' },
+              { key: 'story_description', value: 'At DuloraBite...' },
+          ];
+          return [];
+      },
       get: (args: any) => {
         if (query.includes('COUNT(*)')) return { c: mockProducts.length };
         if (query.includes('username')) {

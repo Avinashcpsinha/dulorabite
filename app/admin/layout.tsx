@@ -2,7 +2,7 @@
 import { useState, useEffect, createContext, useContext } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import Link from 'next/link';
-import { LayoutDashboard, Package, ShoppingBag, Users, LogOut, ChevronRight, Menu, X } from 'lucide-react';
+import { LayoutDashboard, Package, ShoppingBag, Users, LogOut, ChevronRight, Menu, X, Sparkles } from 'lucide-react';
 
 const AdminCtx = createContext<{ token: string; username: string; logout: () => void } | null>(null);
 export const useAdmin = () => useContext(AdminCtx)!;
@@ -39,6 +39,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     { href: '/admin/products', label: 'Products', icon: <Package size={17} /> },
     { href: '/admin/orders', label: 'Orders', icon: <ShoppingBag size={17} /> },
     { href: '/admin/resellers', label: 'Reseller Leads', icon: <Users size={17} /> },
+    { href: '/admin/cms', label: 'CMS Content', icon: <Sparkles size={17} /> },
   ];
 
   return (

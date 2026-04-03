@@ -7,11 +7,13 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "db:seed": "node lib/seed.js"
+    "db:seed": "node lib/seed.js",
+    "db:seed:pg": "node lib/seed-pg.js"
   },
   "dependencies": {
     "@vercel/postgres": "^0.10.0",
     "bcryptjs": "^2.4.3",
+    "better-sqlite3": "^12.8.0",
     "clsx": "^2.1.1",
     "jsonwebtoken": "^9.0.3",
     "lucide-react": "^0.383.0",

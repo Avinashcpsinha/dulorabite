@@ -19,8 +19,22 @@ async function getFeaturedProducts(): Promise<Product[]> {
   }
 }
 
+async function getSettings(): Promise<any> {
+  try {
+    const db = await getDb();
+    const rows = await db.prepare('SELECT * FROM settings').all();
+    return rows.reduce((acc: any, row: any) => {
+      acc[row.key] = row.value;
+      return acc;
+    }, {});
+  } catch {
+    return {};
+  }
+}
+
 export default async function HomePage() {
   const products = await getFeaturedProducts();
+  const settings = await getSettings();
 
   return (
     <CartProvider>
@@ -85,10 +99,10 @@ export default async function HomePage() {
             
             <div className="w-full md:w-1/2 space-y-8">
               <div>
-                <span className="text-xs font-bold uppercase tracking-widest text-[#E8B96A] mb-3 block">About DuloraBite</span>
-                <h2 className="font-playfair text-4xl md:text-6xl font-black mb-6 leading-tight">Handmade with <br /> <em className="text-[#E8B96A]">Pure Intention</em></h2>
+                <span className="text-xs font-bold uppercase tracking-widest text-[#E8B96A] mb-3 block">{settings.story_subtitle || 'About DuloraBite'}</span>
+                <h2 className="font-playfair text-4xl md:text-6xl font-black mb-6 leading-tight" dangerouslySetInnerHTML={{ __html: settings.story_title?.replace('\n', '<br />') || 'Handmade with <br /> <em className="text-[#E8B96A]">Pure Intention</em>' }} />
                 <p className="text-white/70 leading-relaxed mb-6 font-cormorant text-xl italic">
-                  "At DuloraBite, we believe that the best sweets are made just like they would be in your own kitchen—with honest ingredients and zero compromises."
+                  "{settings.story_description || 'At DuloraBite, we believe that the best sweets are made just like they would be in your own kitchen—with honest ingredients and zero compromises.'}"
                 </p>
                 <div className="space-y-4">
                   <div className="flex gap-4">
@@ -127,10 +141,10 @@ export default async function HomePage() {
         {/* --- PARTNERSHIP / RESELLER --- */}
         <section id="contact" className="py-24 bg-white">
           <div className="container mx-auto px-6 max-w-lg text-center">
-            <span className="text-xs font-bold uppercase tracking-widest text-[#C8973A] mb-3 block">Business Opportunities</span>
-            <h2 className="font-playfair text-4xl md:text-5xl font-black text-[#3B1F0E] mb-6">Become a Partner</h2>
+            <span className="text-xs font-bold uppercase tracking-widest text-[#C8973A] mb-3 block">{settings.reseller_subtitle || 'Business Opportunities'}</span>
+            <h2 className="font-playfair text-4xl md:text-5xl font-black text-[#3B1F0E] mb-6">{settings.reseller_title || 'Become a Partner'}</h2>
             <p className="text-[#A0603A]">
-              We are looking for passionate resellers and distributors. Contact us to join our journey.
+              {settings.reseller_description || 'We are looking for passionate resellers and distributors. Contact us to join our journey.'}
             </p>
             <Link href="/products" className="mt-8 inline-block px-10 py-4 rounded-full bg-[#C8973A] text-[#3B1F0E] font-bold uppercase tracking-wider hover:bg-[#E8B96A] transition-all">
               Join the Family
