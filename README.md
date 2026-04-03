@@ -85,11 +85,6 @@ Open [http://localhost:3000](http://localhost:3000)
 ### 6. Access Admin Panel
 Go to [http://localhost:3000/admin](http://localhost:3000/admin)
 
-| Credential | Value |
-|-----------|-------|
-| Username | `admin` |
-| Password | `dulorabite@123` |
-
 ---
 
 ## 📁 Project Structure

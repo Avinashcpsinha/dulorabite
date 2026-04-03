@@ -52,7 +52,8 @@ export async function getDb(): Promise<any> {
         if (query.includes('COUNT(*)')) return { c: mockProducts.length };
         if (query.includes('username')) {
             const bcrypt = require('bcryptjs');
-            return { id: 1, username: 'admin', password_hash: bcrypt.hashSync('dulorabite@123', 10) };
+            const pass = process.env.ADMIN_PASSWORD || 'ChangeMe@123';
+            return { id: 1, username: 'admin', password_hash: bcrypt.hashSync(pass, 10) };
         }
         return null;
       },

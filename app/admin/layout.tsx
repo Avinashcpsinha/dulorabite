@@ -141,7 +141,7 @@ function LoginScreen({ onLogin }: { onLogin: (t: string, u: string) => void }) {
         <div className="space-y-4">
           <div>
             <label className="block text-xs font-bold uppercase tracking-wider mb-1.5" style={{ color: '#A0603A' }}>Username</label>
-            <input value={username} onChange={e => setUsername(e.target.value)} placeholder="admin" style={inp}
+            <input value={username} onChange={e => setUsername(e.target.value)} placeholder="Username" style={inp}
               onFocus={e => (e.target.style.borderColor = '#C8973A')} onBlur={e => (e.target.style.borderColor = 'rgba(59,31,14,0.15)')} />
           </div>
           <div>
@@ -154,7 +154,6 @@ function LoginScreen({ onLogin }: { onLogin: (t: string, u: string) => void }) {
             style={{ background: '#C8973A', color: '#3B1F0E' }}>
             {loading ? 'Logging in...' : 'Sign In'}
           </button>
-          <p className="text-xs text-center" style={{ color: '#aaa' }}>Default: admin / dulorabite@123</p>
         </div>
         <Link href="/" className="block text-center mt-5 text-xs" style={{ color: '#C8973A' }}>← Back to website</Link>
       </div>
